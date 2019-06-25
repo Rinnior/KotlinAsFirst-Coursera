@@ -172,6 +172,15 @@ class Tests {
 
     @Test
     @Tag("Normal")
+    fun pow() {
+        assertEquals(1.0, pow(1.0, 5), 1e-5)
+        assertEquals(9.0, pow(3.0, 2), 1e-5)
+        assertEquals(27.0, pow(3.0, 3), 1e-5)
+        assertEquals(78125.0, pow(5.0, 7), 1e-5)
+    }
+
+    @Test
+    @Tag("Normal")
     fun sin() {
         assertEquals(0.0, sin(0.0, 1e-5), 1e-5)
         assertEquals(1.0, sin(PI / 2.0, 1e-5), 1e-5)
@@ -179,6 +188,8 @@ class Tests {
         assertEquals(-1.0, sin(3.0 * PI / 2.0, 1e-5), 1e-5)
         assertEquals(0.0, sin(100 * PI, 1e-5), 1e-5)
     }
+
+
 
     @Test
     @Tag("Normal")
@@ -218,6 +229,16 @@ class Tests {
         assertTrue(hasDifferentDigits(222266666))
         assertFalse(hasDifferentDigits(0))
         assertFalse(hasDifferentDigits(777))
+    }
+
+    @Test
+    @Tag("Hard")
+    fun len() {
+        assertEquals(1, len(0))
+        assertEquals(2, len(25))
+        assertEquals(8, len(78546810))
+        assertEquals(7, len(6582214))
+
     }
 
     @Test
