@@ -3,6 +3,9 @@
 package lesson4.task1
 
 import lesson1.task1.discriminant
+import lesson1.task1.sqr
+import lesson3.task1.isPrime
+import lesson3.task1.pow
 import kotlin.math.sqrt
 
 /**
@@ -115,14 +118,27 @@ fun buildSumExample(list: List<Int>) = list.joinToString(separator = " + ", post
  * по формуле abs = sqrt(a1^2 + a2^2 + ... + aN^2).
  * Модуль пустого вектора считать равным 0.0.
  */
-fun abs(v: List<Double>): Double = TODO()
+fun abs(v: List<Double>): Double {
+    var abs = 0.0
+    for (el in v) {
+        abs += (el * el)
+    }
+    return sqrt(abs)
+}
 
 /**
  * Простая
  *
  * Рассчитать среднее арифметическое элементов списка list. Вернуть 0.0, если список пуст
  */
-fun mean(list: List<Double>): Double = TODO()
+fun mean(list: List<Double>): Double {
+    var sum = 0.0
+    if (list.isEmpty()) return 0.0
+    for (el in list) {
+        sum += el
+    }
+    return sum/list.size
+}
 
 /**
  * Средняя
@@ -132,7 +148,17 @@ fun mean(list: List<Double>): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun center(list: MutableList<Double>): MutableList<Double> = TODO()
+fun center(list: MutableList<Double>): MutableList<Double> {
+    var av = 0.0
+    for (i in list) {
+        av = av + i
+    }
+    av = av/list.size
+    for (i in 0 until list.size) {
+        list[i] = list[i] - av
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -141,7 +167,13 @@ fun center(list: MutableList<Double>): MutableList<Double> = TODO()
  * представленные в виде списков a и b. Скалярное произведение считать по формуле:
  * C = a1b1 + a2b2 + ... + aNbN. Произведение пустых векторов считать равным 0.0.
  */
-fun times(a: List<Double>, b: List<Double>): Double = TODO()
+fun times(a: List<Double>, b: List<Double>): Double {
+    var c = 0.0
+    for (i in 0 until a.size) {
+        c = c + a[i]*b[i]
+    }
+    return c
+}
 
 /**
  * Средняя
@@ -151,7 +183,14 @@ fun times(a: List<Double>, b: List<Double>): Double = TODO()
  * Коэффициенты многочлена заданы списком p: (p0, p1, p2, p3, ..., pN).
  * Значение пустого многочлена равно 0.0 при любом x.
  */
-fun polynom(p: List<Double>, x: Double): Double = TODO()
+fun polynom(p: List<Double>, x: Double): Double {
+    var pol = 0.0
+    for (i in 0 until p.size) {
+        pol = pol + p[i]* pow(x,i)
+    }
+    return pol
+
+}
 
 /**
  * Средняя
@@ -163,7 +202,14 @@ fun polynom(p: List<Double>, x: Double): Double = TODO()
  *
  * Обратите внимание, что данная функция должна изменять содержание списка list, а не его копии.
  */
-fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
+fun accumulate(list: MutableList<Double>): MutableList<Double> {
+    var acc = 0.0
+    for (i in 0 until list.size) {
+        list[i] += acc
+        acc = list[i]
+    }
+    return list
+}
 
 /**
  * Средняя
@@ -172,7 +218,28 @@ fun accumulate(list: MutableList<Double>): MutableList<Double> = TODO()
  * Результат разложения вернуть в виде списка множителей, например 75 -> (3, 5, 5).
  * Множители в списке должны располагаться по возрастанию.
  */
+
 fun factorize(n: Int): List<Int> = TODO()
+
+/*fun isGood (nn:Int, llist:List<Int>) : List<Int> {
+    var n = nn
+    var list = llist
+    for (i in 2..n) {
+        if (isPrime(i) && n % i == 0) {
+            list = (list + isGood(n / i, list))
+        }
+    }
+    return list
+}
+
+
+
+fun factorize(n: Int): List<Int> {
+    var list = listOf<Int>()
+    list = isGood(n, list)
+
+    return list
+}*/
 
 /**
  * Сложная
@@ -190,7 +257,19 @@ fun factorizeToString(n: Int): String = TODO()
  * Результат перевода вернуть в виде списка цифр в base-ичной системе от старшей к младшей,
  * например: n = 100, base = 4 -> (1, 2, 1, 0) или n = 250, base = 14 -> (1, 3, 12)
  */
-fun convert(n: Int, base: Int): List<Int> = TODO()
+fun convert(n: Int, base: Int): List<Int> {
+    var list = listOf<Int>()
+    var nn = n
+    while (nn>=base) {
+        list += nn%base
+        nn = nn/base
+    }
+    list += nn
+    return (list.reversed())
+
+
+}
+
 
 /**
  * Сложная
@@ -200,7 +279,22 @@ fun convert(n: Int, base: Int): List<Int> = TODO()
  * строчными буквами: 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: n = 100, base = 4 -> 1210, n = 250, base = 14 -> 13c
  */
-fun convertToString(n: Int, base: Int): String = TODO()
+
+fun convertToChar(x: Int): String  {
+    val alf = "abcdefghijklmnopqrstuvwxyz"
+    if (x>9) return alf [x-10].toString() else return x.toString()
+}
+
+fun convertToString(n: Int, base: Int): String {
+    var list = ""
+    var nn = n
+    while (nn>=base) {
+            list += convertToChar(nn % base)
+            nn = nn/base
+    }
+    list += convertToChar(nn)
+    return (list.reversed())
+}
 
 /**
  * Средняя
@@ -209,7 +303,15 @@ fun convertToString(n: Int, base: Int): String = TODO()
  * из системы счисления с основанием base в десятичную.
  * Например: digits = (1, 3, 12), base = 14 -> 250
  */
-fun decimal(digits: List<Int>, base: Int): Int = TODO()
+fun decimal(digits: List<Int>, base: Int): Int {
+    var n = 0
+    var i = digits.size
+    while (i>0) {
+        n += digits[digits.size-i]*lesson3.task1.pow(base, i-1)
+        i--
+    }
+    return n
+}
 
 /**
  * Сложная
@@ -220,7 +322,19 @@ fun decimal(digits: List<Int>, base: Int): Int = TODO()
  * 10 -> a, 11 -> b, 12 -> c и так далее.
  * Например: str = "13c", base = 14 -> 250
  */
-fun decimalFromString(str: String, base: Int): Int = TODO()
+fun decimalFromString(str: String, base: Int): Int {
+    var list = listOf<Int>()
+    val alf = "0123456789abcdefghijklmnopqrstuvwxyz".toCharArray()
+
+    for (cstr in str) {
+        for (calf in 0 until alf.size) {
+            if (cstr == alf[calf]) {
+                list += calf
+                    }
+        }
+    }
+    return decimal(list,base)
+}
 
 /**
  * Сложная
@@ -230,7 +344,9 @@ fun decimalFromString(str: String, base: Int): Int = TODO()
  * 90 = XC, 100 = C, 400 = CD, 500 = D, 900 = CM, 1000 = M.
  * Например: 23 = XXIII, 44 = XLIV, 100 = C
  */
-fun roman(n: Int): String = TODO()
+fun roman(n: Int): String {
+
+}
 
 /**
  * Очень сложная
